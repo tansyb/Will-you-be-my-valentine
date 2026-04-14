@@ -1,16 +1,52 @@
-# React + Vite
+# Will You Be My Valentine? 💕
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interactive Valentine's Day web/desktop app built with React + Vite + Electron.
 
-Currently, two official plugins are available:
+## 🎯 What It Does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. **Default Scene**: Full-screen `background1.png` with centered clickable envelope area.
+2. **Click to Open**: Click the envelope → smoothly fades in `background2.png` overlay (1s opacity transition).
+3. **Layered Backgrounds**: Uses dual bg-layer divs for seamless crossfade effect.
+4. **Minimal & Smooth**: No distractions, pure interaction.
 
-## React Compiler
+## 🛠 Tech & Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Key Files:**
 
-## Expanding the ESLint configuration
+- `src/App.jsx`: React component with state (`isOpened`), imports bg1/bg2, renders layered divs + clickable envelope.
+- `src/App.css`: Core styles - `.scene` (full viewport), `.bg-layer` (cover bg), `.bg-layer-top` (opacity transition), `.clickable-envelope` (absolute positioned trigger).
+- `src/index.css`: Custom fonts loaded (@font-face for Biro Script Plus, Lavonia Classy, Computer Says No) + global reset.
+- `src/assets/`: background1.png (base), background2.png (overlay), fonts/\*.ttf.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Interaction Flow:**
+
+```
+background1.png (opacity 1)
++ overlay background2.png (opacity 0, .opened → opacity 1)
++ clickable envelope (removed after click)
+```
+
+## 🚀 Run It
+
+```bash
+npm install
+npm run dev  # Vite HMR + Electron app
+```
+
+Browser: http://localhost:5173
+
+## 📱 Responsive & Effects
+
+- Full viewport (100vw/100vh).
+- Smooth opacity transition on bg layers.
+- Cursor pointer on envelope.
+- Fonts ready for text reveals (future).
+
+## Future Enhancements
+
+- Animate envelope opening SVG.
+- Reveal message on bg2 ("Will you be my valentine?").
+- Sound effects.
+- Back button or toggle.
+
+Perfect starter for romantic surprise app! ✨
