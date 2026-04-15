@@ -14,7 +14,64 @@
 .bg-layer-top {
   opacity: 0;
   transition: opacity 1s ease;
+  z-index: 2
 }
+
+.bg2-text span {
+  opacity: 0;
+  display: inline-block;
+}
+
+.bg-layer-top.opened .bg2-text span {
+  animation: fadeLetter 1s ease forwards;
+}
+
+@keyframes fadeLetter {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bg2-text {
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 0.3em;
+
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-family: "Lavonia Classy";
+  font-size: 2.5rem;
+  color: #9e1919;
+  text-align: center;
+
+  z-index: 3;
+  pointer-events: none;
+}
+
+.word {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.letter {
+  opacity: 0;
+  display: inline-block;
+}
+
+.bg-layer-top.opened .letter {
+  animation: fadeLetter 1s ease forwards;
+}
+
 
 .bg-layer-top.opened {
   opacity: 1;
@@ -28,4 +85,38 @@
   height: 10%;
   cursor: pointer;
   z-index: 10;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  25% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  75% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.opening-text {
+  font-family: "Biro Script Plus", cursive;
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  font-size: 1.2rem;
+  font-weight: 100;
+  color: black;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  animation: heartbeat 3s ease-in-out infinite;
+
+  pointer-events: none;
 }
