@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./App.css";
 import bg1 from "./assets/background1.png";
 import bg2 from "./assets/background2.png";
+import bgMusic from "./assets/sounds/jazz-bg-music-loop.mp3";
+
 import confetti from "canvas-confetti";
 import confettiPop from "./assets/sounds/confetti-pop.mp3";
 import endscreen from "./assets/endscreen.png";
@@ -64,6 +66,10 @@ function App() {
 
   return (
     <div className="scene">
+      <audio autoPlay loop>
+        <source src={bgMusic} type="audio/mpeg" />
+      </audio>
+
       {/* closed letter scene */}
       <div
         className="bg-layer"
