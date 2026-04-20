@@ -2,9 +2,11 @@ import { useState } from "react";
 import "./App.css";
 import bg1 from "./assets/background1.png";
 import bg2 from "./assets/background2.png";
+import confetti from "canvas-confetti";
+import confettiPop from "./assets/sounds/confetti-pop.mp3";
+import endscreen from "./assets/endscreen.png";
 
-
-// For the letter fade in 
+// For the letter fade in
 function AnimatedWord({ word, startIndex }) {
   return (
     <span className="word">
@@ -21,7 +23,6 @@ function AnimatedWord({ word, startIndex }) {
   );
 }
 
-
 function App() {
   const [isOpened, setIsOpened] = useState(false);
   const text = "Will you be my Valentine?";
@@ -33,66 +34,87 @@ function App() {
 
   // generates random pos
   function runAway() {
-    const top = Math.random() * 80 + 5;  // 5–85%
+    const top = Math.random() * 80 + 5; // 5–85%
     const left = Math.random() * 80 + 5; // 5–85%
     setNoPos({ top: `${top}%`, left: `${left}%` });
   }
 
+  // handle confetti effects after 'Yes' is clicked
+  function handleYes() {
+    const audio = new Audio(confettiPop);
+    audio.play();
+
+    confetti({
+      particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6 },
+      colors: ["#ff6b9d", "#ffd6e7", "#ff9eb5", "#ffffff", "#ffb3c6"],
+    });
+
+    setTimeout(() => {
+      confetti({
+        particleCount: 100,
+        spread: 120,
+        origin: { y: 0.4 },
+        colors: ["#ff6b9d", "#ffd6e7", "#ff9eb5", "#ffffff", "#ffb3c6"],
+      });
+    }, 300);
+    setAnswered(true);
+  }
+
   return (
     <div className="scene">
-
       {/* closed letter scene */}
       <div
         className="bg-layer"
         style={{ backgroundImage: `url(${bg1})` }}
       ></div>
-      <div
-        className="opening-text"
-      >Open Me</div>
+      <div className="opening-text">Open Me</div>
 
       {/* open letter scene */}
       <div
         className={`bg-layer bg-layer-top ${isOpened ? "opened" : ""}`}
         style={{ backgroundImage: `url(${bg2})` }}
-        
-      >
+      />
+      <div
+        className={`bg-layer bg-layer-top ${answered ? "opened" : ""}`}
+        style={{ backgroundImage: `url(${endscreen})` }}
+      />
 
-        {/* animated text "will you be my valentine?" */}
-        <div className="bg2-text">
-          {words.map((word, wi) => (
-            <AnimatedWord
-              key={wi}
-              word={word}
-              startIndex={text.indexOf(word)}
-            />
-          ))}
-        </div>
+      {/* before envelope is opened */}
+      {!isOpened && (
+        <div className="clickable-envelope" onClick={() => setIsOpened(true)} />
+      )}
 
-        {/* if yes button is press, goes to black screen */}
-        {answered && (
-          <div className="black-screen" />
-        )}
+      {/* after envelope is opened */}
+      {isOpened && !answered && (
+        <>
+          {/* animated text "will you be my valentine?" */}
+          <div className="bg2-text">
+            {words.map((word, wi) => (
+              <AnimatedWord
+                key={wi}
+                word={word}
+                startIndex={text.indexOf(word)}
+              />
+            ))}
+          </div>
 
-        <button
-          className="btn btn-yes"
-          onClick={() => setAnswered(true)}
-        >
-          Yes!
-        </button>
+          <button className="btn btn-yes" onClick={handleYes}>
+            Yes!
+          </button>
 
-        {/* on hover, no button runs away to random pos */}
-        <button
-          className="btn btn-no"
-          style={{ top: noPos.top, left: noPos.left }}
-          onMouseEnter={runAway}
-          onClick={runAway}
-        >
-          No way!
-        </button>
-          {!isOpened && (
-            <div className="clickable-envelope" onClick={() => setIsOpened(true)}/>
-          )}
-      </div>
+          {/* on hover, no button runs away to random pos */}
+          <button
+            className="btn btn-no"
+            style={{ top: noPos.top, left: noPos.left }}
+            onMouseEnter={runAway}
+            onClick={runAway}
+          >
+            No way!
+          </button>
+        </>
+      )}
     </div>
   );
 }
