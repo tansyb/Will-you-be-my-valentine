@@ -121,7 +121,7 @@
 
 .btn {
   position: absolute;
-  z-index: 4;
+  z-index: 13;
   padding: 0.2rem;
   width: 70px;
   font-family: "computer says no";
