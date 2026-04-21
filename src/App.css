@@ -67,9 +67,6 @@
 .letter {
   opacity: 0;
   display: inline-block;
-}
-
-.letter {
   animation: fadeLetter 1s ease forwards;
 }
 
@@ -136,7 +133,7 @@
 }
 
 .btn-yes {
-  top: 70%;
+  top: 60%;
   left: 45%;
   background-color: #9e1919;
   color: white;
@@ -148,10 +145,57 @@
   transition: top 0.1s ease, left 0.1s ease;
 }
 
-/*  temporary  */
-.black-screen {
+.end-scene-date,
+.end-scene-seat {
   position: absolute;
-  inset: 0;
-  background: black;
-  z-index: 5;
+  z-index: 10;
+  font-family: "Essays1743", cursive;
+  font-size: 0.8rem;
+  color: black;
 }
+
+.end-scene-date {
+  top: 61%;
+  left: 31%;
+}
+
+.end-scene-seat {
+  top: 61%;
+  left: 38.7%;
+}
+
+.end-scene-text {
+  position: absolute;
+  z-index: 10;
+  font-family: "biro script plus", cursive;
+  color: black;
+  top: 52.5%;
+  left: 43%;
+  animation: heartbeat 3s ease-in-out infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.vinyl {
+  position: absolute;
+  top: 10%;
+  left: 7%;
+  transform: translate(-50%, -50%);
+  
+  width: 100px; /* adjust */
+  z-index: 10;
+
+  animation: spin 6s linear infinite;
+}
+
+
+
+
+

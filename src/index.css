@@ -13,6 +13,11 @@
   src: url('./assets/fonts/computer-says-no.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Essays1743'; 
+  src: url('./assets/fonts/Essays1743.ttf') format('truetype');
+}
+
 * {
   margin: 0;
   padding: 0;

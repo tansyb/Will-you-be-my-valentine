@@ -3,6 +3,8 @@ import "./App.css";
 import bg1 from "./assets/background1.png";
 import bg2 from "./assets/background2.png";
 import bgMusic from "./assets/sounds/jazz-bg-music-loop.mp3";
+import chime from "./assets/sounds/chime-short.mp3";
+import vinyl from "./assets/vinyl.png";
 
 import confetti from "canvas-confetti";
 import confettiPop from "./assets/sounds/confetti-pop.mp3";
@@ -32,7 +34,7 @@ function App() {
   const [answered, setAnswered] = useState(false);
 
   // random position for the No button
-  const [noPos, setNoPos] = useState({ top: "70%", left: "55%" });
+  const [noPos, setNoPos] = useState({ top: "60%", left: "55%" });
 
   // generates random pos
   function runAway() {
@@ -64,11 +66,19 @@ function App() {
     setAnswered(true);
   }
 
+  function handleOpen() {
+  const audio = new Audio(chime);
+  audio.play();
+
+  setIsOpened(true);
+}
+
   return (
     <div className="scene">
       <audio autoPlay loop>
         <source src={bgMusic} type="audio/mpeg" />
       </audio>
+      <img src={vinyl} className="vinyl" />
 
       {/* closed letter scene */}
       <div
@@ -89,7 +99,7 @@ function App() {
 
       {/* before envelope is opened */}
       {!isOpened && (
-        <div className="clickable-envelope" onClick={() => setIsOpened(true)} />
+        <div className="clickable-envelope" onClick={handleOpen} />
       )}
 
       {/* after envelope is opened */}
@@ -119,6 +129,20 @@ function App() {
           >
             No way!
           </button>
+        </>
+      )}
+
+      {isOpened && answered && (
+        <>
+          <div className="end-scene-date">
+            14.02
+          </div>  
+          <div className="end-scene-seat">
+            NEXT 2 ME
+          </div>
+          <div className="end-scene-text">
+            Save the date
+          </div>
         </>
       )}
     </div>
